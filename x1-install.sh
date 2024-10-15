@@ -20,7 +20,7 @@ function print_color {
 
 # Automatically detect the user's home directory and suggest it as the default
 default_install_dir="$HOME/validator"
- 
+
 # Prompt user for installation directory, with default pre-filled
 print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
 read install_dir
@@ -44,10 +44,27 @@ fi
 # Change to the installation directory
 cd $install_dir
 
-# Install required dependencies
+# Install Solana CLI tools from the official release
 print_color "info" "Installing Solana CLI tools..."
-sudo apt-get update
-sudo apt-get install solana
+sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" || {
+    print_color "error" "Failed to install Solana CLI tools. Exiting..."
+    exit 1
+}
+
+# Add Solana CLI to the PATH environment variable
+if ! grep -q 'solana' ~/.profile; then
+    print_color "info" "Adding Solana CLI to the PATH environment variable..."
+    echo 'export PATH="/home/ubuntu/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.profile
+    source ~/.profile
+fi
+
+# Confirm installation
+solana --version
+if [ $? -ne 0 ]; then
+    print_color "error" "Solana CLI installation failed. Exiting..."
+    exit 1
+fi
+print_color "success" "Solana CLI installed successfully."
 
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
