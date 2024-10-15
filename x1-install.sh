@@ -116,6 +116,23 @@ print_color "success" "Successfully switched to Xolana network: $network_url"
 print_color "info" " "
 
 
+print_color "success" "Successfully switched to Xolana network: $network_url"
+print_color "info" " "
+
+# Test Solana CLI by checking version
+solana --version
+
+# Check balance of the identity account
+print_color "info" "Checking balance for identity account..."
+balance=$(solana balance $identity_pubkey)
+
+if [ -z "$balance" ]; then
+    print_color "error" "Failed to retrieve balance for identity account. Please verify the Solana network configuration and try again."
+    exit 1
+fi
+
+print_color "success" "Identity account balance: $balance"
+
 
 # Check if Solana config directory exists, and prompt the user for removal if it does
 solana_config_dir="$HOME/.config/solana"
@@ -191,8 +208,8 @@ while [ $attempt -le $max_attempts ]; do
     request_faucet $identity_pubkey
 
     # Wait 5 seconds before checking the balance
-    print_color "info" "Waiting 5 seconds to verify balance..."
-    sleep 15
+    print_color "info" "Waiting 30 seconds to verify balance..."
+    sleep 30
 
     balance=$(solana balance $identity_pubkey)
 
