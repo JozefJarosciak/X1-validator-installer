@@ -52,7 +52,6 @@ while true; do
     fi
 done
 
-
 # Change to the installation directory
 cd $install_dir
 
@@ -75,7 +74,6 @@ else
 fi
 
 # Install Solana CLI tools from the official release
-print_color "info" " "
 print_color "info" " "
 print_color "info" "Installing Solana CLI tools..."
 sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" || {
@@ -102,7 +100,21 @@ fi
 
 print_color "success" "Solana CLI installed successfully."
 print_color "info" " "
+
+### Set Solana CLI to Xolana Network ###
+print_color "info" "Setting Solana CLI to Xolana network..."
+solana config set -u http://xolana.xen.network:8899
+
+# Verify the network configuration
+network_url=$(solana config get | grep 'RPC URL' | awk '{print $NF}')
+if [ "$network_url" != "http://xolana.xen.network:8899" ]; then
+    print_color "error" "Failed to switch to the Xolana network. Exiting..."
+    exit 1
+fi
+
+print_color "success" "Successfully switched to Xolana network: $network_url"
 print_color "info" " "
+
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
 
@@ -133,17 +145,34 @@ print_color "info" "Stake Private Key: $install_dir/stake.json"
 print_color "error" "********************************************************"
 print_color "prompt" "Please take note of the addresses above and save the private keys securely."
 
-# Retry Airdrop up to 3 times
+# Request SOL from Xolana Faucet
+request_faucet() {
+    pubkey=$1
+    print_color "info" "Requesting 5 SOL from the Xolana faucet for pubkey: $pubkey"
+
+    # Make POST request using curl
+    response=$(curl -s -X POST -H "Content-Type: application/json" \
+        -d "{\"pubkey\":\"$pubkey\"}" \
+        https://xolana.xen.network/faucet)
+
+    if echo "$response" | grep -q "success"; then
+        print_color "success" "Successfully requested 5 SOL from the faucet."
+    else
+        print_color "error" "Failed to request SOL from the faucet. Response: $response"
+    fi
+}
+
+# Retry Faucet up to 3 times
 attempt=1
 max_attempts=3
 success=false
 
 while [ $attempt -le $max_attempts ]; do
-    print_color "info" "Requesting airdrop of 10 SOL (Attempt $attempt of $max_attempts)..."
-    solana airdrop 10 $identity_pubkey
+    print_color "info" "Requesting faucet for 5 SOL (Attempt $attempt of $max_attempts)..."
+    request_faucet $identity_pubkey
 
     # Wait 5 seconds before checking the balance
-    print_color "info" "Waiting 5 seconds to verify airdrop..."
+    print_color "info" "Waiting 5 seconds to verify balance..."
     sleep 5
 
     balance=$(solana balance $identity_pubkey)
@@ -159,7 +188,7 @@ while [ $attempt -le $max_attempts ]; do
 done
 
 if [ "$success" = false ]; then
-    print_color "error" "Failed to get airdrop. Please fund the identity account manually."
+    print_color "error" "Failed to get 5 SOL from the faucet. Please fund the identity account manually."
     exit 1
 fi
 
