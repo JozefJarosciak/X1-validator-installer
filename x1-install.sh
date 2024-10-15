@@ -115,23 +115,10 @@ fi
 print_color "success" "Successfully switched to Xolana network: $network_url"
 print_color "info" " "
 
-
-print_color "success" "Successfully switched to Xolana network: $network_url"
-print_color "info" " "
-
 # Test Solana CLI by checking version
 solana --version
 
-# Check balance of the identity account
-print_color "info" "Checking balance for identity account..."
-balance=$(solana balance $identity_pubkey)
 
-if [ -z "$balance" ]; then
-    print_color "error" "Failed to retrieve balance for identity account. Please verify the Solana network configuration and try again."
-    exit 1
-fi
-
-print_color "success" "Identity account balance: $balance"
 
 
 # Check if Solana config directory exists, and prompt the user for removal if it does
@@ -180,6 +167,18 @@ print_color "info" "Vote Private Key: $install_dir/vote.json"
 print_color "info" "Stake Private Key: $install_dir/stake.json"
 print_color "error" "********************************************************"
 print_color "prompt" "Please take note of the addresses above and save the private keys securely."
+
+
+# Check balance of the identity account
+print_color "info" "Checking balance for identity account..."
+balance=$(solana balance $identity_pubkey)
+
+if [ -z "$balance" ]; then
+    print_color "error" "Failed to retrieve balance for identity account. Please verify the Solana network configuration and try again."
+    exit 1
+fi
+
+print_color "success" "Identity account balance: $balance"
 
 # Request SOL from Xolana Faucet
 request_faucet() {
