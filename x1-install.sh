@@ -23,7 +23,7 @@ default_install_dir="$HOME/validator"
 
 # Prompt user for installation directory, with default pre-filled
 while true; do
-    print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
+    print_color "prompt" "X1 Validator Directory (press Enter to use default: $default_install_dir):"
 
     # Manually show the default directory and capture input
     read install_dir
@@ -35,7 +35,7 @@ while true; do
 
     # Check if directory exists
     if [ -d "$install_dir" ]; then
-        print_color "prompt" "Directory $install_dir already exists. Would you like to delete it (y) or enter a different directory (n)? [y/n]"
+        print_color "prompt" "Directory $install_dir already exists. Delete it (y) or enter a different directory (n)? [y/n]"
         read choice
         if [ "$choice" == "y" ]; then
             rm -rf "$install_dir"
