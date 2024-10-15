@@ -22,27 +22,54 @@ function print_color {
 default_install_dir="$HOME/validator"
 
 # Prompt user for installation directory, with default pre-filled
-print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
-read install_dir
+while true; do
+    print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
+    read install_dir
 
-# If the user presses Enter without entering a directory, use the default
-if [ -z "$install_dir" ]; then
-    install_dir=$default_install_dir
-fi
+    # If the user presses Enter without entering a directory, use the default
+    if [ -z "$install_dir" ]; then
+        install_dir=$default_install_dir
+    fi
 
-# Confirm the directory with the user
-print_color "info" "Using installation directory: $install_dir"
-
-# Create the directory if it doesn't exist
-if [ ! -d "$install_dir" ]; then
-    print_color "info" "Creating directory $install_dir"
-    mkdir -p $install_dir
-else
-    print_color "info" "Directory $install_dir already exists"
-fi
+    # Check if directory exists
+    if [ -d "$install_dir" ]; then
+        print_color "prompt" "Directory $install_dir already exists. Would you like to delete it (y) or enter a different directory (n)? [y/n]"
+        read choice
+        if [ "$choice" == "y" ]; then
+            rm -rf "$install_dir"
+            print_color "info" "Deleted directory $install_dir"
+            mkdir -p "$install_dir"
+            break
+        else
+            print_color "prompt" "Please enter a different directory."
+        fi
+    else
+        print_color "info" "Creating directory $install_dir"
+        mkdir -p "$install_dir"
+        break
+    fi
+done
 
 # Change to the installation directory
 cd $install_dir
+
+# Check if Rust is installed, otherwise install it
+if ! command -v rustc &> /dev/null; then
+    print_color "info" "Installing Rust..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    print_color "info" "Reloading PATH to include Cargo's bin directory..."
+    . "$HOME/.cargo/env"
+else
+    print_color "success" "Rust is already installed: $(rustc --version)"
+fi
+
+# Verify Rust installation
+if ! rustc --version &> /dev/null; then
+    print_color "error" "Rust installation failed. Exiting..."
+    exit 1
+else
+    print_color "success" "Rust installation successful: $(rustc --version)"
+fi
 
 # Install Solana CLI tools from the official release
 print_color "info" "Installing Solana CLI tools..."
@@ -54,8 +81,8 @@ sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" || {
 # Add Solana CLI to the PATH environment variable
 if ! grep -q 'solana' ~/.profile; then
     print_color "info" "Adding Solana CLI to the PATH environment variable..."
-    echo 'export PATH="/home/ubuntu/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.profile
-    source ~/.profile
+    echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.profile
+    . ~/.profile
 fi
 
 # Confirm installation
