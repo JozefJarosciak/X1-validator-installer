@@ -206,7 +206,6 @@ request_faucet() {
     fi
 }
 
-
 # Retry Faucet up to 3 times
 attempt=1
 max_attempts=1
