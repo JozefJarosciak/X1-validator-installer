@@ -20,7 +20,7 @@ function print_color {
 
 # Automatically detect the user's home directory and suggest it as the default
 default_install_dir="$HOME/validator"
-
+ 
 # Prompt user for installation directory, with default pre-filled
 print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
 read install_dir
@@ -32,7 +32,6 @@ fi
 
 # Confirm the directory with the user
 print_color "info" "Using installation directory: $install_dir"
-
 
 # Create the directory if it doesn't exist
 if [ ! -d "$install_dir" ]; then
