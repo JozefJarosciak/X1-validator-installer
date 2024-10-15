@@ -115,6 +115,25 @@ fi
 print_color "success" "Successfully switched to Xolana network: $network_url"
 print_color "info" " "
 
+
+
+# Check if Solana config directory exists, and prompt the user for removal if it does
+solana_config_dir="$HOME/.config/solana"
+
+if [ -d "$solana_config_dir" ]; then
+    print_color "prompt" "The Solana configuration directory ($solana_config_dir) already exists. Would you like to remove it and create a fresh setup? [y/n]"
+    read choice
+
+    if [ "$choice" == "y" ]; then
+        rm -rf "$solana_config_dir"
+        print_color "info" "Deleted existing Solana configuration directory: $solana_config_dir"
+    else
+        print_color "error" "Installation cannot proceed without cleaning up the existing configuration. Exiting..."
+        exit 1
+    fi
+fi
+
+
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
 
@@ -164,7 +183,7 @@ request_faucet() {
 
 # Retry Faucet up to 3 times
 attempt=1
-max_attempts=3
+max_attempts=1
 success=false
 
 while [ $attempt -le $max_attempts ]; do
@@ -173,7 +192,7 @@ while [ $attempt -le $max_attempts ]; do
 
     # Wait 5 seconds before checking the balance
     print_color "info" "Waiting 5 seconds to verify balance..."
-    sleep 5
+    sleep 15
 
     balance=$(solana balance $identity_pubkey)
 
