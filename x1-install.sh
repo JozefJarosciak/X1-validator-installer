@@ -48,6 +48,7 @@ while true; do
     else
         print_color "info" "Creating directory $install_dir"
         mkdir -p "$install_dir"
+        cd "$install_dir"
         break
     fi
 done
@@ -193,7 +194,12 @@ request_faucet() {
         -d "{\"pubkey\":\"$pubkey\"}" \
         https://xolana.xen.network/faucet)
 
-    if echo "$response" | grep -q "success"; then
+    # Check if the response contains "Please wait"
+    if echo "$response" | grep -q "Please wait"; then
+        # Extract the full message from the response
+        wait_message=$(echo "$response" | jq -r '.message')
+        print_color "error" "Faucet request failed: $wait_message"
+    elif echo "$response" | grep -q '"success":true'; then
         print_color "success" "Successfully requested 5 SOL from the faucet."
     else
         print_color "error" "Failed to request SOL from the faucet. Response: $response"
