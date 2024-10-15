@@ -24,9 +24,11 @@ default_install_dir="$HOME/validator"
 # Prompt user for installation directory, with default pre-filled
 while true; do
     print_color "prompt" "Please enter the directory where you want to install the validator setup (press Enter to use default: $default_install_dir):"
-    read install_dir
 
-    # If the user presses Enter without entering a directory, use the default
+    # Use `read -e -i` to prefill the input with the default directory
+    read -e -i "$default_install_dir" install_dir
+
+    # If the user presses Enter without entering a directory, use the default (already done by `-i`)
     if [ -z "$install_dir" ]; then
         install_dir=$default_install_dir
     fi
@@ -49,6 +51,7 @@ while true; do
         break
     fi
 done
+
 
 # Change to the installation directory
 cd $install_dir
