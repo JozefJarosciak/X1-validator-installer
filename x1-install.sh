@@ -159,6 +159,19 @@ withdrawer_pubkey=$(solana-keygen pubkey $HOME/.config/solana/withdrawer.json)
 print_color "info" "Setting default keypair to the generated identity keypair..."
 solana config set -k $install_dir/identity.json
 
+# Ensure Solana CLI is using the Xolana network
+print_color "info" "Forcing Solana CLI to use Xolana network..."
+solana config set -u http://xolana.xen.network:8899
+
+# Check the updated configuration
+network_url=$(solana config get | grep 'RPC URL' | awk '{print $NF}')
+if [ "$network_url" != "http://xolana.xen.network:8899" ]; then
+    print_color "error" "Failed to switch to the Xolana network. Exiting..."
+    exit 1
+fi
+
+print_color "success" "Successfully set RPC to Xolana network: $network_url"
+
 # Output wallet information
 print_color "success" "Wallets created successfully!"
 print_color "error" "********************************************************"
