@@ -72,6 +72,8 @@ else
 fi
 
 # Install Solana CLI tools from the official release
+print_color "info" " "
+print_color "info" " "
 print_color "info" "Installing Solana CLI tools..."
 sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" || {
     print_color "error" "Failed to install Solana CLI tools. Exiting..."
@@ -96,16 +98,21 @@ if ! command -v solana &> /dev/null; then
 fi
 
 print_color "success" "Solana CLI installed successfully."
+print_color "info" " "
+print_color "info" " "
 
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
 
-solana-keygen new --outfile $install_dir/identity.json
+solana-keygen new --no-bip39-passphrase --outfile $install_dir/identity.json
 identity_pubkey=$(solana-keygen pubkey $install_dir/identity.json)
-solana-keygen new --outfile $install_dir/vote.json
+
+solana-keygen new --no-bip39-passphrase --outfile $install_dir/vote.json
 vote_pubkey=$(solana-keygen pubkey $install_dir/vote.json)
-solana-keygen new --outfile $install_dir/stake.json
+
+solana-keygen new --no-bip39-passphrase --outfile $install_dir/stake.json
 stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
+
 
 # Output wallet information
 print_color "success" "Wallets created successfully!"
