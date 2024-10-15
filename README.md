@@ -14,5 +14,6 @@ Ensure you have the following installed on your system:
 To install the X1 Validator on your machine, use the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
 
 ```bash
-wget -O ~/x1-install.sh https://raw.githubusercontent.com/JozefJarosciak/X1-validator-installer/master/x1-install.sh && chmod +x ~/x1-install.sh && ~/x1-install.sh
+cd ~ && wget -O ~/x1-install.sh https://raw.githubusercontent.com/JozefJarosciak/X1-validator-installer/master/x1-install.sh && chmod +x ~/x1-install.sh && ~/x1-install.sh
+
 
