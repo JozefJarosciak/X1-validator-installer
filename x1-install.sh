@@ -154,6 +154,10 @@ stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
 solana-keygen new --no-passphrase --outfile $HOME/.config/solana/withdrawer.json
 withdrawer_pubkey=$(solana-keygen pubkey $HOME/.config/solana/withdrawer.json)
 
+# Set the default keypair to the generated identity keypair
+print_color "info" "Setting default keypair to the generated identity keypair..."
+solana config set -k $install_dir/identity.json
+
 # Output wallet information
 print_color "success" "Wallets created successfully!"
 print_color "error" "********************************************************"
@@ -167,7 +171,6 @@ print_color "info" "Vote Private Key: $install_dir/vote.json"
 print_color "info" "Stake Private Key: $install_dir/stake.json"
 print_color "error" "********************************************************"
 print_color "prompt" "Please take note of the addresses above and save the private keys securely."
-
 
 # Check balance of the identity account
 print_color "info" "Checking balance for identity account..."
