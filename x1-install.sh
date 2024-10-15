@@ -103,7 +103,6 @@ fi
 print_color "success" "Solana CLI installed successfully."
 print_color "info" " "
 print_color "info" " "
-
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
 
@@ -117,7 +116,8 @@ vote_pubkey=$(solana-keygen pubkey $install_dir/vote.json)
 solana-keygen new --no-passphrase --outfile $install_dir/stake.json
 stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
 
-
+solana-keygen new --no-passphrase --outfile $HOME/.config/solana/withdrawer.json
+withdrawer_pubkey=$(solana-keygen pubkey $HOME/.config/solana/withdrawer.json)
 
 # Output wallet information
 print_color "success" "Wallets created successfully!"
@@ -125,29 +125,47 @@ print_color "error" "********************************************************"
 print_color "info" "Identity Wallet Address: $identity_pubkey"
 print_color "info" "Vote Wallet Address: $vote_pubkey"
 print_color "info" "Stake Wallet Address: $stake_pubkey"
+print_color "info" "Withdrawer Public Key: $withdrawer_pubkey"
 print_color "info" "Private keys are stored in the following locations:"
-print_color "info" " "
 print_color "info" "Identity Private Key: $install_dir/identity.json"
 print_color "info" "Vote Private Key: $install_dir/vote.json"
 print_color "info" "Stake Private Key: $install_dir/stake.json"
 print_color "error" "********************************************************"
+print_color "prompt" "Please take note of the addresses above and save the private keys securely."
 
-# Prompt the user to download and save the private keys securely
-print_color "prompt" "Please take a note of addresses above, then later download and save the private keys from the specified locations and keep them in a secure place."
-print_color "error" "********************************************************"
-print_color "info" " "
+# Retry Airdrop up to 3 times
+attempt=1
+max_attempts=3
+success=false
 
-# Fund the identity account (Airdrop)
-print_color "info" "Requesting airdrop for identity account..."
-solana airdrop 10 $identity_pubkey
+while [ $attempt -le $max_attempts ]; do
+    print_color "info" "Requesting airdrop of 10 SOL (Attempt $attempt of $max_attempts)..."
+    solana airdrop 10 $identity_pubkey
 
-# Check balance
-balance=$(solana balance $identity_pubkey)
-print_color "success" "Identity account funded with $balance SOL"
+    # Wait 5 seconds before checking the balance
+    print_color "info" "Waiting 5 seconds to verify airdrop..."
+    sleep 5
 
-# Create the vote account
+    balance=$(solana balance $identity_pubkey)
+
+    if [ "$balance" != "0 SOL" ]; then
+        print_color "success" "Identity account funded with $balance SOL"
+        success=true
+        break
+    fi
+
+    attempt=$((attempt + 1))
+    sleep 5  # Wait 5 seconds before retrying
+done
+
+if [ "$success" = false ]; then
+    print_color "error" "Failed to get airdrop. Please fund the identity account manually."
+    exit 1
+fi
+
+# Create the vote account with a different withdrawer pubkey
 print_color "info" "Creating vote account..."
-solana create-vote-account $install_dir/vote.json $install_dir/identity.json $identity_pubkey --commission 10
+solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 10
 
 # Verify vote account creation
 solana vote-account $vote_pubkey
@@ -162,6 +180,25 @@ solana stake-account $stake_pubkey
 # Delegate stake
 print_color "info" "Delegating stake..."
 solana delegate-stake $install_dir/stake.json $install_dir/vote.json
+
+# System Tuning
+print_color "info" "Tuning system for Solana validator performance..."
+
+sudo bash -c "cat >/etc/sysctl.d/21-solana-validator.conf <<EOF
+# Increase UDP buffer sizes
+net.core.rmem_default = 134217728
+net.core.rmem_max = 134217728
+net.core.wmem_default = 134217728
+net.core.wmem_max = 134217728
+
+# Increase memory mapped files limit
+vm.max_map_count = 1000000
+
+# Increase number of allowed open file descriptors
+fs.nr_open = 1000000
+EOF"
+
+sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf
 
 # Validator Setup
 print_color "prompt" "Setting up your validator node. This might take some time."
