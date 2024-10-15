@@ -19,10 +19,10 @@ function print_color {
 }
 
 # Section 1: Setup Validator Directory
-print_color "info" "===== 1/11: Validator Directory Setup ====="
+print_color "info" "\n\n===== 1/11: Validator Directory Setup ====="
 
 default_install_dir="$HOME/x1_validator"
-print_color "prompt" "Validator Directory (default: $default_install_dir):"
+print_color "prompt" "Validator Directory (press Enter for default: $default_install_dir):"
 read install_dir
 
 if [ -z "$install_dir" ]; then
@@ -56,7 +56,7 @@ if ! command -v rustc &> /dev/null; then
 else
     print_color "success" "Rust is already installed: $(rustc --version)"
 fi
-
+print_color "success" "Rust installed."
 
 # Section 3: Install Solana CLI
 print_color "info" "\n===== 3/11: Solana CLI Installation ====="
