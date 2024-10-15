@@ -19,7 +19,7 @@ function print_color {
 }
 
 # Section 1: Setup Validator Directory
-print_color "info" "\n\n===== 1/11: Validator Directory Setup ====="
+print_color "info" "\n===== 1/11: Validator Directory Setup ====="
 
 default_install_dir="$HOME/x1_validator"
 print_color "prompt" "Validator Directory (press Enter for default: $default_install_dir):"
