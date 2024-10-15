@@ -196,8 +196,8 @@ request_faucet() {
 
     # Check if the response contains "Please wait"
     if echo "$response" | grep -q "Please wait"; then
-        # Extract the full message from the response
-        wait_message=$(echo "$response" | jq -r '.message')
+        # Extract the full message using grep and sed
+        wait_message=$(echo "$response" | sed -n 's/.*"message":"\([^"]*\)".*/\1/p')
         print_color "error" "Faucet request failed: $wait_message"
     elif echo "$response" | grep -q '"success":true'; then
         print_color "success" "Successfully requested 5 SOL from the faucet."
@@ -205,6 +205,7 @@ request_faucet() {
         print_color "error" "Failed to request SOL from the faucet. Response: $response"
     fi
 }
+
 
 # Retry Faucet up to 3 times
 attempt=1
