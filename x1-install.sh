@@ -19,9 +19,9 @@ function print_color {
 }
 
 # Section 1: Setup Validator Directory
-print_color "info" "===== 1/10: Validator Directory Setup ====="
+print_color "info" "===== 1/11: Validator Directory Setup ====="
 
-default_install_dir="$HOME/validator"
+default_install_dir="$HOME/x1_validator"
 print_color "prompt" "Validator Directory (default: $default_install_dir):"
 read install_dir
 
@@ -47,7 +47,7 @@ print_color "success" "Directory created: $install_dir"
 
 
 # Section 2: Install Rust
-print_color "info" "===== 2/10: Rust Installation ====="
+print_color "info" "\n===== 2/11: Rust Installation ====="
 
 if ! command -v rustc &> /dev/null; then
     print_color "info" "Installing Rust..."
@@ -59,7 +59,7 @@ fi
 
 
 # Section 3: Install Solana CLI
-print_color "info" "===== 3/10: Solana CLI Installation ====="
+print_color "info" "\n===== 3/11: Solana CLI Installation ====="
 
 print_color "info" "Installing Solana CLI..."
 sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" > /dev/null 2>&1 || {
@@ -76,7 +76,7 @@ print_color "success" "Solana CLI installed."
 
 
 # Section 4: Switch to Xolana Network
-print_color "info" "===== 4/10: Switch to Xolana Network ====="
+print_color "info" "\n===== 4/11: Switch to Xolana Network ====="
 
 solana config set -u http://xolana.xen.network:8899 > /dev/null 2>&1
 network_url=$(solana config get | grep 'RPC URL' | awk '{print $NF}')
@@ -88,7 +88,7 @@ print_color "success" "Switched to Xolana network."
 
 
 # Section 5: Wallets Creation
-print_color "info" "===== 5/10: Creating Wallets ====="
+print_color "info" "\n===== 5/11: Creating Wallets ====="
 
 solana-keygen new --no-passphrase --outfile $install_dir/identity.json > /dev/null 2>&1
 identity_pubkey=$(solana-keygen pubkey $install_dir/identity.json)
@@ -107,7 +107,7 @@ print_color "info" "Stake: $stake_pubkey"
 
 
 # Section 6: Request Faucet Funds
-print_color "info" "===== 6/10: Requesting Faucet Funds ====="
+print_color "info" "\n===== 6/11: Requesting Faucet Funds ====="
 
 request_faucet() {
     response=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"pubkey\":\"$1\"}" https://xolana.xen.network/faucet)
@@ -135,21 +135,21 @@ fi
 
 
 # Section 7: Create Vote Account
-print_color "info" "===== 7/10: Creating Vote Account ====="
+print_color "info" "\n===== 7/11: Creating Vote Account ====="
 
 solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 5 > /dev/null 2>&1
 print_color "success" "Vote account created."
 
 
 # Section 8: Create and Fund Stake Account
-print_color "info" "===== 8/10: Creating Stake Account ====="
+print_color "info" "\n===== 8/11: Creating Stake Account ====="
 
 solana create-stake-account $install_dir/stake.json 5 > /dev/null 2>&1
 print_color "success" "Stake account funded with 5 SOL."
 
 
 # Section 9: System Tuning
-print_color "info" "===== 9/10: System Tuning ====="
+print_color "info" "\n===== 9/11: System Tuning ====="
 print_color "info" "Please provide your password for system tuning."
 
 sudo bash -c "cat >/etc/sysctl.d/21-solana-validator.conf <<EOF
@@ -165,26 +165,66 @@ sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf > /dev/null 2>&1
 print_color "success" "System tuned for validator performance."
 
 
-# Section 10: Start Validator
-print_color "info" "===== 10/10: Starting Validator ====="
+# Section 10: Create and Start Validator Service
+print_color "info" "\n===== 10/11: Creating Validator Service ====="
 
-nohup solana-validator \
-    --identity $install_dir/identity.json \
-    --limit-ledger-size 50000000 \
-    --rpc-port 8899 \
-    --entrypoint 216.202.227.220:8001 \
-    --full-rpc-api \
-    --log - \
-    --vote-account $install_dir/vote.json \
-    --max-genesis-archive-unpacked-size 1073741824 \
-    --no-incremental-snapshots \
-    --require-tower \
-    --enable-rpc-transaction-history \
-    --enable-extended-tx-metadata-storage \
-    --skip-startup-ledger-verification \
-    --no-poh-speed-test &
+# Remove existing service if it exists
+if sudo systemctl is-active --quiet 'x1-validator'; then
+    print_color "info" "Stopping and removing existing X1 Validator service..."
+    sudo systemctl stop 'x1-validator' > /dev/null 2>&1
+    sudo systemctl disable 'x1-validator' > /dev/null 2>&1
+    sudo rm /etc/systemd/system/x1-validator.service > /dev/null 2>&1
+fi
 
-print_color "info" "Checking validator logs..."
-tail -f nohup.out
+# Create the X1 Validator service
+sudo bash -c "cat >/etc/systemd/system/x1-validator.service <<EOF
+[Unit]
+Description=X1 Validator Service
+After=network.target
 
-# End of Script
+[Service]
+User=$USER
+ExecStart=$(which solana-validator) \\
+    --identity $install_dir/identity.json \\
+    --vote-account $install_dir/vote.json \\
+    --rpc-port 8899 \\
+    --entrypoint 216.202.227.220:8001 \\
+    --full-rpc-api \\
+    --log - \\
+    --max-genesis-archive-unpacked-size 1073741824 \\
+    --no-incremental-snapshots \\
+    --require-tower \\
+    --enable-rpc-transaction-history \\
+    --enable-extended-tx-metadata-storage \\
+    --skip-startup-ledger-verification \\
+    --no-poh-speed-test
+Restart=always
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target
+EOF"
+
+# Reload systemd, enable, and start the service
+sudo systemctl daemon-reload > /dev/null 2>&1
+sudo systemctl enable x1-validator > /dev/null 2>&1
+sudo systemctl start x1-validator > /dev/null 2>&1
+
+# Section 11: Validate and Final Instructions
+print_color "info" "\n===== 11/11: Verifying Validator Service ====="
+
+if sudo systemctl is-active --quiet x1-validator; then
+    print_color "success" "X1 Validator service started successfully!"
+else
+    print_color "error" "X1 Validator service failed to start."
+    exit 1
+fi
+
+print_color "info" "\n===== Validator Service Commands ====="
+print_color "info" "To manage the X1 Validator service, use the following commands:"
+print_color "info" "Start:   sudo systemctl start x1-validator"
+print_color "info" "Stop:    sudo systemctl stop x1-validator"
+print_color "info" "Restart: sudo systemctl restart x1-validator"
+print_color "info" "Status:  sudo systemctl status x1-validator"
+
+print_color "success" "\nX1 Validator setup complete!"
