@@ -104,14 +104,16 @@ print_color "info" " "
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
 
-solana-keygen new --no-bip39-passphrase --outfile $install_dir/identity.json
+# Automatically generate identity, vote, and stake keypairs without asking for passphrases
+solana-keygen new --no-passphrase --outfile $install_dir/identity.json
 identity_pubkey=$(solana-keygen pubkey $install_dir/identity.json)
 
-solana-keygen new --no-bip39-passphrase --outfile $install_dir/vote.json
+solana-keygen new --no-passphrase --outfile $install_dir/vote.json
 vote_pubkey=$(solana-keygen pubkey $install_dir/vote.json)
 
-solana-keygen new --no-bip39-passphrase --outfile $install_dir/stake.json
+solana-keygen new --no-passphrase --outfile $install_dir/stake.json
 stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
+
 
 
 # Output wallet information
