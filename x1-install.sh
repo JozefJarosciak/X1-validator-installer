@@ -109,16 +109,21 @@ stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
 
 # Output wallet information
 print_color "success" "Wallets created successfully!"
+print_color "error" "********************************************************"
 print_color "info" "Identity Wallet Address: $identity_pubkey"
 print_color "info" "Vote Wallet Address: $vote_pubkey"
 print_color "info" "Stake Wallet Address: $stake_pubkey"
 print_color "info" "Private keys are stored in the following locations:"
+print_color "info" " "
 print_color "info" "Identity Private Key: $install_dir/identity.json"
 print_color "info" "Vote Private Key: $install_dir/vote.json"
 print_color "info" "Stake Private Key: $install_dir/stake.json"
+print_color "error" "********************************************************"
 
 # Prompt the user to download and save the private keys securely
-print_color "prompt" "Please download and save the private keys from the specified locations and keep them in a secure place."
+print_color "prompt" "Please take a note of addresses above, then later download and save the private keys from the specified locations and keep them in a secure place."
+print_color "error" "********************************************************"
+print_color "info" " "
 
 # Fund the identity account (Airdrop)
 print_color "info" "Requesting airdrop for identity account..."
