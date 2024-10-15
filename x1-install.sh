@@ -82,16 +82,20 @@ sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" || {
 if ! grep -q 'solana' ~/.profile; then
     print_color "info" "Adding Solana CLI to the PATH environment variable..."
     echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.profile
-    . ~/.profile
 fi
+
+# Reload PATH in the current shell to make Solana commands immediately available
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 # Confirm installation
 solana --version
 if [ $? -ne 0 ]; then
-    print_color "error" "Solana CLI installation failed. Exiting..."
+    print_color "error" "Solana CLI installation failed. Please try closing and reopening your terminal or manually running:"
+    print_color "info" 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"'
     exit 1
 fi
 print_color "success" "Solana CLI installed successfully."
+
 
 # Create wallets automatically
 print_color "info" "Creating identity, vote, and stake accounts..."
