@@ -100,10 +100,19 @@ stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
 solana-keygen new --no-passphrase --outfile $HOME/.config/solana/withdrawer.json > /dev/null 2>&1
 withdrawer_pubkey=$(solana-keygen pubkey $HOME/.config/solana/withdrawer.json)
 
+# Output wallet information
 print_color "success" "Wallets created successfully!"
-print_color "info" "Identity: $identity_pubkey"
-print_color "info" "Vote: $vote_pubkey"
-print_color "info" "Stake: $stake_pubkey"
+print_color "error" "********************************************************"
+print_color "info" "Identity Wallet Address: $identity_pubkey"
+print_color "info" "Vote Wallet Address: $vote_pubkey"
+print_color "info" "Stake Wallet Address: $stake_pubkey"
+print_color "info" "Withdrawer Public Key: $withdrawer_pubkey"
+print_color "info" "Private keys are stored in the following locations:"
+print_color "info" "Identity Private Key: $install_dir/identity.json"
+print_color "info" "Vote Private Key: $install_dir/vote.json"
+print_color "info" "Stake Private Key: $install_dir/stake.json"
+print_color "error" "********************************************************"
+print_color "prompt" "Please take note of the addresses above and save the private keys securely."
 
 
 # Section 6: Request Faucet Funds
