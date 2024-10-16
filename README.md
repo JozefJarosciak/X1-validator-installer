@@ -2,7 +2,7 @@
 
 This script automates the installation and setup of an Xolana X1 validator node, including creation of Solana accounts and key generation, airdrops, system tuning, etc.
 
-<h2 style="color:#0066cc;">Prerequisites</h2>
+## Prerequisites
 
 Ensure you have the following installed on your system:
 - Ubuntu Linux Server
@@ -15,7 +15,7 @@ Ensure you have the following installed on your system:
     - **Bandwidth**: 1GBPS (10GB Port)
 - Ensure your firewall allows TCP/UDP port range 8000-10000 (otherwise X1 won't be able to communicate)
 
-<h2 style="color:#0066cc;">One-Liner Installation Command</h2>
+## One-Liner Installation Command
 
 To install the X1 Validator on your machine, use the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
 
@@ -33,7 +33,7 @@ Note:
 - **Important**: During installation, you’ll see a screen asking you to download and back up your keys from the displayed locations. Make sure to do this after installation. 
 
 
-<h2 style="color:#0066cc;">Running the Validator</h2>
+## Running the Validator
 As part of the setup, the script attempts to **airdrop 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: https://xolana.xen.network/faucet.
 This is because the SOL (XN) in the identity wallet is required to: 
 - **Cover transaction fees** (e.g., votes, on-chain operations)
@@ -58,17 +58,18 @@ Learn more about staking: [X1 Staking Documentation](https://docs.x1.xyz/validat
 - **Stake Account**: Transfer **at least 1 SOL (XN)** into the stake account to begin earning rewards.
 
 
-<h2 style="color:#0066cc;">One-Liner Video Demo</h2>
+
+## One-Liner Video Demo:
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
-<h2 style="color:#0066cc;">Licensing (MIT)</h2>
+## Licensing (MIT)
 This project is licensed under the **MIT License**. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, as long as the original copyright notice and permission notice are included in all copies or substantial portions of the Software.
 
 **MIT License Summary:**
 - You can do almost anything with this code, as long as you provide proper attribution.
 - The software is provided "as is," without warranty of any kind, express or implied.
 
-<h2 style="color:#0066cc;">Contributing & Feedback</h2>
+## Contributing & Feedback
 This is the **first iteration** of the script, and while it aims to be a one-line way to install X1 Validator without any user input, **it may contain bugs or edge cases that have not been considered yet**. 
 We encourage developers to **review the code** thoroughly and report or correct any mistakes they find.
 
@@ -81,7 +82,7 @@ Together, we can **refine this project and make it more robust** over time!
 
 Thank you for your contributions, reviews, and suggestions. Every bit of feedback helps the community!
 
-<h2 style="color:#0066cc;">Other Resources</h2>
+## Other Resources
 - See your validator online: http://x1val.online/
 - Read Xen-Tzu's X1 Validator guide to understand how all this work: https://docs.x1.xyz/explorer
 - If you'd like to help, donate here: https://xen.pub/donate.php
