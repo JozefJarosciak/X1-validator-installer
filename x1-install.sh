@@ -172,6 +172,7 @@ fs.nr_open = 1000000
 EOF" > /dev/null 2>&1
 
 sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf > /dev/null 2>&1
+sudo ulimit -n 1000000
 print_color "success" "System tuned for validator performance."
 
 
