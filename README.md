@@ -5,8 +5,14 @@ This script automates the installation and setup of an Xolana X1 validator node,
 ## Prerequisites
 
 Ensure you have the following installed on your system:
-- Linux based operating system (Tested on Ubuntu 22.04)
-- Ensure your system has at least 32 GB of RAM and 500 GB SSD Drive (ideally NVME)
+- Ubuntu Linux Server
+- Ensure your dedicated server has at least: 128 GB RAM & 2 TB SSD.
+  - For example, Xen.pub Validator is running on the following specs:
+    - CPU.............: AMD Ryzen 9 7900X 12-Core Processor
+    - Memory..........: DDR5 4800MHz 128GB (4 x 32GB 4800MHz)
+    - Disk 1..........: Samsung SSD 980 PRO 2TB
+    - OS..............: Ubuntu 22.04.4 LTS
+    - Bandwidth.......: 1GBPS (10GB Port)
 - Ensure your firewall allows TCP/UDP port range 8000-10000 (otherwise X1 won't be able to communicate)
 
 ## One-Liner Installation Command
