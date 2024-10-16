@@ -32,6 +32,28 @@ Note:
 - Export PATH and ULIMIT should not be necessary, as script is also setting it during execution, but I included it just in case.
 - **Important**: During installation, you’ll see a screen asking you to download and back up your keys from the displayed locations. Make sure to do this after installation. 
 
+
+## Running the Validator
+As part of the setup, the script attempts to **airdrop 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: https://xolana.xen.network/faucet.
+This is because the SOL (XN) in the identity wallet is required to: 
+- **Cover transaction fees** (e.g., votes, on-chain operations)
+- and to  **Initialize accounts** like the vote and stake accounts
+
+So, this script allows you to **start the validator**, even if you don’t have any SOL (XN) staked initially, because staking SOL is **not required** to start the validator. However, without staking, the validator will operate as a **non-participating node**, meaning it will sync with the network but **won't participate in consensus or earn rewards**.
+
+To fully activate the validator and allow it to **vote**, **participate in consensus**, and **earn rewards** - you will need to:
+1. **Stake SOL (XN) in a stake account** tied to the vote account.
+2. Ensure your validator has enough SOL (XN) in the **stake account** to meet the network’s minimum staking requirements.
+3. More about staking: https://docs.x1.xyz/validating/staking
+
+
+### SOL (XN) - Distribution Recommendations
+
+- **Identity Wallet**: Keep at least **1-5 SOL (XN)** to cover fees for essential operations.
+- **Stake Account**: Transfer **at least 1 SOL (XN)** into the stake account to begin earning rewards.
+
+
+
 ## One-Liner Video Demo:
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
