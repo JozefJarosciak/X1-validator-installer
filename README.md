@@ -2,7 +2,7 @@
 
 This script automates the installation and setup of an Xolana X1 validator node, including creation of Solana accounts and key generation, airdrops, system tuning, etc.
 
-## Prerequisites
+<h2 style="color:#0066cc;">Prerequisites</h2>
 
 Ensure you have the following installed on your system:
 - Ubuntu Linux Server
@@ -15,7 +15,7 @@ Ensure you have the following installed on your system:
     - **Bandwidth**: 1GBPS (10GB Port)
 - Ensure your firewall allows TCP/UDP port range 8000-10000 (otherwise X1 won't be able to communicate)
 
-## One-Liner Installation Command
+<h2 style="color:#0066cc;">One-Liner Installation Command</h2>
 
 To install the X1 Validator on your machine, use the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
 
@@ -33,18 +33,23 @@ Note:
 - **Important**: During installation, you’ll see a screen asking you to download and back up your keys from the displayed locations. Make sure to do this after installation. 
 
 
-## Running the Validator
+<h2 style="color:#0066cc;">Running the Validator</h2>
 As part of the setup, the script attempts to **airdrop 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: https://xolana.xen.network/faucet.
 This is because the SOL (XN) in the identity wallet is required to: 
 - **Cover transaction fees** (e.g., votes, on-chain operations)
-- and to  **Initialize accounts** like the vote and stake accounts
+- **Initialize accounts** like the vote and stake accounts
 
-So, this script allows you to **start the validator**, even if you don’t have any SOL (XN) staked initially, because staking SOL is **not required** to start the validator. However, without staking, the validator will operate as a **non-participating node**, meaning it will sync with the network but **won't participate in consensus or earn rewards**.
+### Staking Requirements
 
-To fully activate the validator and allow it to **vote**, **participate in consensus**, and **earn rewards** - you will need to:
-1. **Stake SOL (XN) in a stake account** tied to the vote account.
-2. Ensure your validator has enough SOL (XN) in the **stake account** to meet the network’s minimum staking requirements.
-3. More about staking: https://docs.x1.xyz/validating/staking
+You can **start the validator** without staking any SOL (XN), as staking is **not required** to run it.
+However, without staking, the validator will act as a **non-participating node** — it will sync with the network but **won't vote, participate in consensus, or earn rewards**.
+
+To fully activate the validator and start earning rewards, you must:
+1. **Stake SOL (XN) in a stake account** linked to the vote account.
+2. Ensure your stake account meets the network’s **minimum staking requirements**.
+
+Learn more about staking: [X1 Staking Documentation](https://docs.x1.xyz/validating/staking)
+
 
 
 ### SOL (XN) - Distribution Recommendations
@@ -53,18 +58,17 @@ To fully activate the validator and allow it to **vote**, **participate in conse
 - **Stake Account**: Transfer **at least 1 SOL (XN)** into the stake account to begin earning rewards.
 
 
-
-## One-Liner Video Demo:
+<h2 style="color:#0066cc;">One-Liner Video Demo</h2>
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
-## Licensing (MIT)
+<h2 style="color:#0066cc;">Licensing (MIT)</h2>
 This project is licensed under the **MIT License**. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, as long as the original copyright notice and permission notice are included in all copies or substantial portions of the Software.
 
 **MIT License Summary:**
 - You can do almost anything with this code, as long as you provide proper attribution.
 - The software is provided "as is," without warranty of any kind, express or implied.
 
-## Contributing & Feedback
+<h2 style="color:#0066cc;">Contributing & Feedback</h2>
 This is the **first iteration** of the script, and while it aims to be a one-line way to install X1 Validator without any user input, **it may contain bugs or edge cases that have not been considered yet**. 
 We encourage developers to **review the code** thoroughly and report or correct any mistakes they find.
 
@@ -77,7 +81,7 @@ Together, we can **refine this project and make it more robust** over time!
 
 Thank you for your contributions, reviews, and suggestions. Every bit of feedback helps the community!
 
-## Other Resources
+<h2 style="color:#0066cc;">Other Resources</h2>
 - See your validator online: http://x1val.online/
 - Read Xen-Tzu's X1 Validator guide to understand how all this work: https://docs.x1.xyz/explorer
 - If you'd like to help, donate here: https://xen.pub/donate.php
