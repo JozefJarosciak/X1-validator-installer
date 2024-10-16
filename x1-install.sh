@@ -93,8 +93,10 @@ print_color "info" "\n===== 5/10: Creating Wallets ====="
 
 solana-keygen new --no-passphrase --outfile $install_dir/identity.json > /dev/null 2>&1
 identity_pubkey=$(solana-keygen pubkey $install_dir/identity.json)
+
 solana-keygen new --no-passphrase --outfile $install_dir/vote.json > /dev/null 2>&1
 vote_pubkey=$(solana-keygen pubkey $install_dir/vote.json)
+
 solana-keygen new --no-passphrase --outfile $install_dir/stake.json > /dev/null 2>&1
 stake_pubkey=$(solana-keygen pubkey $install_dir/stake.json)
 
@@ -108,13 +110,14 @@ print_color "info" "Identity Wallet Address: $identity_pubkey"
 print_color "info" "Vote Wallet Address: $vote_pubkey"
 print_color "info" "Stake Wallet Address: $stake_pubkey"
 print_color "info" "Withdrawer Public Key: $withdrawer_pubkey"
+print_color "info" " "
 print_color "info" "Private keys are stored in the following locations:"
 print_color "info" "Identity Private Key: $install_dir/identity.json"
 print_color "info" "Vote Private Key: $install_dir/vote.json"
 print_color "info" "Stake Private Key: $install_dir/stake.json"
+print_color "info" "Withdrawer Private Key: $HOME/.config/solana/withdrawer.json"
 print_color "error" "********************************************************"
-print_color "prompt" "Please take note of the addresses above and save the private keys securely."
-
+print_color "prompt" "IMPORTANT: After installation, make sure to save both the public addresses and private key files listed above in a secure location!"
 
 # Section 6: Request Faucet Funds
 print_color "info" "\n===== 6/10: Requesting Faucet Funds ====="
