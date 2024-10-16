@@ -72,6 +72,7 @@ sh -c "$(curl -sSfL https://release.solana.com/v1.18.25/install)" > /dev/null 2>
 if ! grep -q 'solana' ~/.profile; then
     echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> ~/.profile
 fi
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 print_color "success" "Solana CLI installed."
 
 
