@@ -85,4 +85,5 @@ Thank you for your contributions, reviews, and suggestions. Every bit of feedbac
 ## 📚 Other Resources
 - See your validator online: http://x1val.online/
 - Read Xen-Tzu's X1 Validator guide to understand how all this work: https://docs.x1.xyz/explorer
+- X1 vs SOLANA: https://x.com/xenpub/status/1843837470821281953
 - If you'd like to help, donate here: https://xen.pub/donate.php
