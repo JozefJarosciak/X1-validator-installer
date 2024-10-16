@@ -170,6 +170,7 @@ net.core.wmem_max = 134217728
 vm.max_map_count = 1000000
 fs.nr_open = 1000000
 EOF"
+sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf
 
 ulimit -n 1000000
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
@@ -179,4 +180,5 @@ print_color "success" "System tuned for validator performance."
 print_color "info" "\n===== 10/10: Finished ====="
 print_color "success" "\nX1 Validator setup complete!"
 print_color "success" "\nX1 Start your X1 Validator by using the following command:"
-print_color "prompt" "\nsolana-validator --identity /home/ubuntu/x1_validator/identity.json --vote-account /home/ubuntu/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api  --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0"
+print_color "prompt" "\nexport PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"; solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOME/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0"
+print_color "info" "\n\n"
