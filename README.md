@@ -63,7 +63,7 @@ Learn more about staking: [X1 Staking Documentation](https://docs.x1.xyz/validat
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
 ## 📜 Licensing (MIT)
-This project is licensed under the **MIT License**. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, as long as the original copyright notice and permission notice are included in all copies or substantial portions of the Software.
+This project is licensed under the **MIT License**.
 
 **MIT License Summary:**
 - You can do almost anything with this code, as long as you provide proper attribution.
