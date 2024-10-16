@@ -28,13 +28,14 @@ When the installation is completed, you can start your validator using the follo
 ```bash
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"; ulimit -n 1000000; solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOME/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0
 ```
-Note: Export PATH and ULIMIT should not be necessary, as script is also setting it during execution, but I included it just in case.
+Note: 
+- Export PATH and ULIMIT should not be necessary, as script is also setting it during execution, but I included it just in case.
+- **Important**: During installation, you’ll see a screen asking you to download and back up your keys from the displayed locations. Make sure to do this after installation. 
 
 ## One-Liner Video Demo:
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
 ## Licensing (MIT)
-
 This project is licensed under the **MIT License**. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, as long as the original copyright notice and permission notice are included in all copies or substantial portions of the Software.
 
 **MIT License Summary:**
@@ -42,7 +43,6 @@ This project is licensed under the **MIT License**. This means you are free to u
 - The software is provided "as is," without warranty of any kind, express or implied.
 
 ## Contributing & Feedback
-
 This is the **first iteration** of the script, and while it aims to be a one-line way to install X1 Validator without any user input, **it may contain bugs or edge cases that have not been considered yet**. 
 We encourage developers to **review the code** thoroughly and report or correct any mistakes they find.
 
