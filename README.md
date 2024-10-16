@@ -7,7 +7,7 @@ This script automates the installation and setup of an Xolana X1 validator node,
 Ensure you have the following installed on your system:
 - Linux based operating system (Tested on Ubuntu 22.04)
 - Ensure your system has at least 32 GB of RAM and 500 GB SSD Drive (ideally NVME)
-- Read more at: https://docs.x1.xyz/explorer
+- Ensure your firewall allows TCP/UDP port range 8000-10000 (otherwise X1 won't be able to communicate)
 
 ## One-Liner Installation Command
 
@@ -28,6 +28,6 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"; ulimit
 One-Liner Video Demo: https://x.com/xenpub/status/1846402568030757357
 
 ## Other Resources
-See your validator online: http://x1val.online/
-
-Visit: https://xen.pub
+- See your validator online: http://x1val.online/
+- Read Xen-Tzu's X1 Validator guide to understand how this work: https://docs.x1.xyz/explorer
+- Visit: https://xen.pub
