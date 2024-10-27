@@ -33,7 +33,7 @@ Edit the limits.conf and modify security limits configuration:
 sudo nano /etc/security/limits.conf
 ```
 
-Add to the bottom of the file and save:
+Add to the bottom of the file, save & reboot server before installation:
 ```bash
 ubuntu  soft  nofile  1000000
 ubuntu  hard  nofile  1000000
