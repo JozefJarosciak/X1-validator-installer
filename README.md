@@ -34,7 +34,7 @@ Note:
 
 
 ## 🚀 Running the Validator
-As part of the setup, the script attempts to **airdrop 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: https://xolana.xen.network/faucet.
+As part of the setup, the script attempts to **airdrop 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: https://xolana.xen.network/web_faucet.
 This is because the SOL (XN) in the identity wallet is required to: 
 - **Cover transaction fees** (e.g., votes, on-chain operations)
 - **Initialize accounts** like the vote and stake accounts
