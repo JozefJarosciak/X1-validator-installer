@@ -147,12 +147,12 @@ else
     exit 1
 fi
 
-# Section 7: Create Vote Account with Commission 11%
+# Section 7: Create Vote Account with Commission 5%
 print_color "info" "\n===== 7/10: Creating Vote Account ====="
 
-solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 11 > /dev/null 2>&1
+solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 5 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    print_color "success" "Vote account created with 11% commission."
+    print_color "success" "Vote account created with 5% commission."
 else
     print_color "error" "Failed to create vote account."
     exit 1
