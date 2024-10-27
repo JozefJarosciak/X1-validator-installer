@@ -3,6 +3,9 @@
 
 This script automates the installation and setup of an Xolana X1 validator node, including creation of Solana accounts and key generation, airdrops, system tuning, etc.
 
+
+
+
 ## ⚙️ Prerequisites
 
 Ensure you have the following installed on your system:
@@ -18,6 +21,9 @@ Ensure you have the following installed on your system:
 
 ### Firewall Configuration:
 Ensure your firewall allows **TCP/UDP port range 8000-10000** (otherwise X1 won't be able to communicate)
+
+
+
 
 ## 🛠️ One-Liner Installation Command
 
@@ -39,6 +45,9 @@ solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOM
 - The `export PATH` and `ulimit` commands are included to ensure the environment is correctly set up when starting the validator. The script sets these during execution, but including them here ensures they are set if you start a new shell session.
 - **Important**: During installation, you’ll see a screen displaying the locations of your key files. **Make sure to back up your keys** from the displayed locations after installation.
 
+
+
+
 ## 🚀 Running the Validator
 
 As part of the setup, the script attempts to **request 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: [https://xolana.xen.network/web_faucet](https://xolana.xen.network/web_faucet).
@@ -50,11 +59,13 @@ This SOL (XN) in the identity wallet is required to:
 - **Cover transaction fees** (e.g., votes, on-chain operations)
 - **Initialize accounts** like the vote and stake accounts
 
+
 ### Staking with Available SOL (XN)
 
 After creating the vote account, the script automatically stakes the **maximum available SOL (XN)**, leaving a small buffer (e.g., **0.5 SOL (XN)**) for transaction fees. This means the initial stake amount may be less than the recommended amount due to faucet limitations.
 
 You can **start the validator** with this initial stake, but to maximize participation and potential rewards, you may want to **increase your stake later**.
+
 
 ### Increasing Your Stake
 
@@ -87,13 +98,20 @@ To increase your stake:
 
    **Note:** Replace `<amount_to_stake>` with the amount you wish to stake.
 
+
 ### SOL (XN) - Distribution Recommendations
 
 - **Identity Wallet**: Keep at least **0.5 SOL (XN)** to cover fees for essential operations.
 - **Stake Account**: Stake as much SOL (XN) as possible to maximize rewards, considering the faucet limitations.
 
+
+
+
 ## 🎥 One-Liner Video Demo
 One-Liner Video Demo: [https://x.com/xenpub/status/1846402568030757357](https://x.com/xenpub/status/1846402568030757357)
+
+
+
 
 ## 📜 Licensing (MIT)
 
@@ -102,6 +120,9 @@ This project is licensed under the **MIT License**.
 **MIT License Summary:**
 - You can do almost anything with this code, as long as you provide proper attribution.
 - The software is provided "as is," without warranty of any kind, express or implied.
+
+
+
 
 ## 🤝 Contributing & Feedback
 
@@ -117,6 +138,9 @@ If you have any suggestions for improvement or new features, please feel free to
 Together, we can **refine this project and make it more robust** over time!
 
 Thank you for your contributions, reviews, and suggestions. Every bit of feedback helps the community!
+
+
+
 
 ## 📚 Other Resources
 - See your validator online: [http://x1val.online/](http://x1val.online/)
