@@ -10,9 +10,10 @@ This script automates the installation and setup of an Xolana X1 validator node,
 
 ## ⚙️ Prerequisites
 
+### OS Requirements:
 Ensure you have the following installed on your system:
-
-- **Ubuntu Linux Server**
+- **Ubuntu Linux Server** (ideally 22.04+)
+&nbsp;
 
 ### Hardware Requirements:
 - **CPU**: AMD Ryzen 9 7900X 12-Core Processor (or equivalent)
@@ -20,11 +21,30 @@ Ensure you have the following installed on your system:
 - **Hard Disk**: 2 TB SSD (e.g., Samsung SSD 980 PRO 2TB)
 - **OS**: Ubuntu 22.04.4 LTS
 - **Bandwidth**: 1 Gbps (10 Gbps Port recommended)
+&nbsp;
+
+### **Increase `ulimit` Limits on Ubuntu Configuration**
+Validators on X1 (a Solana-based network) require high performance and need to handle numerous concurrent connections, transactions, and on-chain operations.
+Thus, it is essential to raise the `ulimit` (open file descriptor limit) to ensure your validator can run reliably under high load.
+
+Edit the limits.conf and modify security limits configuration:
+```bash
+sudo nano /etc/security/limits.conf
+```
+
+Add to the bottom of the file and save:
+```bash
+ubuntu  soft  nofile  1000000
+ubuntu  hard  nofile  1000000
+```
+
+These settings ensure that the validator can open up to 1,000,000 files and network sockets when needed, preventing bottlenecks.
+&nbsp;
 
 ### Firewall Configuration:
 Ensure your firewall allows **TCP/UDP port range 8000-10000** (otherwise X1 won't be able to communicate)
 
-The firewall config should look something like this:
+The firewall configuration should look something like this:
 
 ![image](https://github.com/user-attachments/assets/99f51fec-d7fd-4437-ae6c-91fa3fec288f)
 
