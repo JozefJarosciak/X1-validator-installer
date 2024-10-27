@@ -24,6 +24,12 @@ Ensure you have the following installed on your system:
 ### Firewall Configuration:
 Ensure your firewall allows **TCP/UDP port range 8000-10000** (otherwise X1 won't be able to communicate)
 
+The firewall config should look something like this:
+
+![image](https://github.com/user-attachments/assets/99f51fec-d7fd-4437-ae6c-91fa3fec288f)
+
+
+
 &nbsp;
 <hr>
 &nbsp;
