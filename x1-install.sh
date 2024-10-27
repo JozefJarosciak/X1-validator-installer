@@ -124,7 +124,7 @@ print_color "prompt" "IMPORTANT: After installation, make sure to save both the 
 print_color "info" "\n===== 6/10: Requesting Faucet Funds ====="
 
 request_faucet() {
-    response=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"pubkey\":\"$1\"}" https://xolana.xen.network/faucet)
+    response=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"pubkey\":\"$1\"}" https://xolana.xen.network/web_faucet)
     if echo "$response" | grep -q "Please wait"; then
         wait_message=$(echo "$response" | sed -n 's/.*"message":"\([^"]*\)".*/\1/p')
         print_color "error" "Faucet request failed: $wait_message"
