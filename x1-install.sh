@@ -53,7 +53,7 @@ print_color "info" "\n===== 2/10: Rust Installation ====="
 if ! command -v rustc &> /dev/null; then
     print_color "info" "Installing Rust..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y > /dev/null 2>&1
-    . "$HOME/.cargo/env" > /dev/null 2>&1
+    source "$HOME/.cargo/env" > /dev/null 2>&1
 else
     print_color "success" "Rust is already installed: $(rustc --version)"
 fi
@@ -75,6 +75,8 @@ fi
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH" > /dev/null 2>&1
 print_color "success" "Solana CLI installed."
 
+# Source the profile to update the current shell
+source ~/.profile
 
 # Section 4: Switch to Xolana Network
 print_color "info" "\n===== 4/10: Switch to Xolana Network ====="
@@ -86,7 +88,6 @@ if [ "$network_url" != "http://xolana.xen.network:8899" ]; then
     exit 1
 fi
 print_color "success" "Switched to Xolana network."
-
 
 # Section 5: Wallets Creation
 print_color "info" "\n===== 5/10: Creating Wallets ====="
@@ -138,28 +139,35 @@ request_faucet $identity_pubkey
 print_color "info" "Waiting 30 seconds to verify balance..."
 sleep 30
 
-balance=$(solana balance $identity_pubkey)
-if [ "$balance" != "0 SOL" ]; then
-    print_color "success" "Identity funded with $balance."
+balance=$(solana balance $identity_pubkey | awk '{print $1}')
+if (( $(echo "$balance > 0" | bc -l) )); then
+    print_color "success" "Identity funded with $balance SOL."
 else
-    print_color "error" "Failed to get 5 SOL. Exiting."
+    print_color "error" "Failed to get SOL. Exiting."
     exit 1
 fi
 
-
-# Section 7: Create Vote Account
+# Section 7: Create Vote Account with Commission 11%
 print_color "info" "\n===== 7/10: Creating Vote Account ====="
 
-solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 5 > /dev/null 2>&1
-print_color "success" "Vote account created."
-
+solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 11 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    print_color "success" "Vote account created with 11% commission."
+else
+    print_color "error" "Failed to create vote account."
+    exit 1
+fi
 
 # Section 8: Create and Fund Stake Account
 print_color "info" "\n===== 8/10: Creating Stake Account ====="
 
 solana create-stake-account $install_dir/stake.json 5 > /dev/null 2>&1
-print_color "success" "Stake account funded with 5 SOL."
-
+if [ $? -eq 0 ]; then
+    print_color "success" "Stake account created and funded with 5 SOL."
+else
+    print_color "error" "Failed to create and fund stake account."
+    exit 1
+fi
 
 # Section 9: System Tuning
 print_color "info" "\n===== 9/10: System Tuning ====="
@@ -175,13 +183,17 @@ fs.nr_open = 1000000
 EOF"
 sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf
 
+# Set ulimit for current session
 ulimit -n 1000000
+
+# Ensure Solana CLI is in PATH
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
 print_color "success" "System tuned for validator performance."
 
 # Section 10: Create and Start Validator Service
 print_color "info" "\n===== 10/10: Finished ====="
 print_color "success" "\nX1 Validator setup complete!"
-print_color "success" "\nX1 Start your X1 Validator by using the following command:"
-print_color "prompt" "\nexport PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"; ulimit -n 1000000; solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOME/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0"
+print_color "success" "\nStart your X1 Validator by using the following command:"
+print_color "prompt" "\nexport PATH=\"\$HOME/.local/share/solana/install/active_release/bin:\$PATH\"; ulimit -n 1000000; solana-validator --identity $install_dir/identity.json --vote-account $install_dir/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0"
 print_color "info" "\n\n\n"
