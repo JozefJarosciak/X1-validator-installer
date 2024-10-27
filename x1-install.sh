@@ -147,16 +147,14 @@ else
     exit 1
 fi
 
-
 # Set default keypair to identity keypair
 print_color "info" "Setting default keypair to identity keypair..."
-solana config set --keypair $install_dir/identity.json > /dev/null 2>&1
-
+solana config set --keypair $install_dir/identity.json
 
 # Section 7: Create Vote Account with Commission 5%
 print_color "info" "\n===== 7/10: Creating Vote Account ====="
 
-solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 5 > /dev/null 2>&1
+solana create-vote-account $install_dir/vote.json $install_dir/identity.json $withdrawer_pubkey --commission 5
 if [ $? -eq 0 ]; then
     print_color "success" "Vote account created with 5% commission."
 else
@@ -164,14 +162,26 @@ else
     exit 1
 fi
 
+# Check balance after creating vote account
+balance=$(solana balance $identity_pubkey | awk '{print $1}')
+print_color "info" "Balance after creating vote account: $balance SOL"
+
 # Section 8: Create and Fund Stake Account
 print_color "info" "\n===== 8/10: Creating Stake Account ====="
 
-solana create-stake-account $install_dir/stake.json 5 > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    print_color "success" "Stake account created and funded with 5 SOL."
+if (( $(echo "$balance > 0.5" | bc -l) )); then
+    stake_amount=$(echo "$balance - 0.5" | bc)
+    print_color "info" "Staking $stake_amount SOL."
+
+    solana create-stake-account $install_dir/stake.json $stake_amount
+    if [ $? -eq 0 ]; then
+        print_color "success" "Stake account created and funded with $stake_amount SOL."
+    else
+        print_color "error" "Failed to create and fund stake account."
+        exit 1
+    fi
 else
-    print_color "error" "Failed to create and fund stake account."
+    print_color "error" "Insufficient funds to create stake account."
     exit 1
 fi
 
