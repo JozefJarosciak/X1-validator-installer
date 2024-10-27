@@ -3,7 +3,9 @@
 
 This script automates the installation and setup of an Xolana X1 validator node, including creation of Solana accounts and key generation, airdrops, system tuning, etc.
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## ⚙️ Prerequisites
@@ -22,7 +24,9 @@ Ensure you have the following installed on your system:
 ### Firewall Configuration:
 Ensure your firewall allows **TCP/UDP port range 8000-10000** (otherwise X1 won't be able to communicate)
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 🛠️ One-Liner Installation Command
@@ -45,7 +49,9 @@ solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOM
 - The `export PATH` and `ulimit` commands are included to ensure the environment is correctly set up when starting the validator. The script sets these during execution, but including them here ensures they are set if you start a new shell session.
 - **Important**: During installation, you’ll see a screen displaying the locations of your key files. **Make sure to back up your keys** from the displayed locations after installation.
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 🚀 Running the Validator
@@ -105,12 +111,17 @@ To increase your stake:
 - **Stake Account**: Stake as much SOL (XN) as possible to maximize rewards, considering the faucet limitations.
 
 
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 🎥 One-Liner Video Demo
 One-Liner Video Demo: [https://x.com/xenpub/status/1846402568030757357](https://x.com/xenpub/status/1846402568030757357)
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 📜 Licensing (MIT)
@@ -121,7 +132,9 @@ This project is licensed under the **MIT License**.
 - You can do almost anything with this code, as long as you provide proper attribution.
 - The software is provided "as is," without warranty of any kind, express or implied.
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 🤝 Contributing & Feedback
@@ -139,7 +152,9 @@ Together, we can **refine this project and make it more robust** over time!
 
 Thank you for your contributions, reviews, and suggestions. Every bit of feedback helps the community!
 
-
+&nbsp;
+<hr>
+&nbsp;
 
 
 ## 📚 Other Resources
