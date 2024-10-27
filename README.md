@@ -26,6 +26,7 @@ Ensure you have the following installed on your system:
 ### **Increase `ulimit` Limits on Ubuntu Configuration**
 Validators on X1 (a Solana-based network) require high performance and need to handle numerous concurrent connections, transactions, and on-chain operations.
 Thus, it is essential to raise the `ulimit` (open file descriptor limit) to ensure your validator can run reliably under high load.
+Note: The script tries to automate this, but it's not always successful!
 
 Edit the limits.conf and modify security limits configuration:
 ```bash
