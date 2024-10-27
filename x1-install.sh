@@ -147,6 +147,12 @@ else
     exit 1
 fi
 
+
+# Set default keypair to identity keypair
+print_color "info" "Setting default keypair to identity keypair..."
+solana config set --keypair $install_dir/identity.json > /dev/null 2>&1
+
+
 # Section 7: Create Vote Account with Commission 5%
 print_color "info" "\n===== 7/10: Creating Vote Account ====="
 
