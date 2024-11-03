@@ -126,14 +126,26 @@ print_color "info" "\n===== 6/10: Requesting Faucet Funds ====="
 request_faucet() {
     response=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"pubkey\":\"$1\"}" https://xolana.xen.network/faucet)
     if echo "$response" | grep -q "Please wait"; then
-        wait_message=$(echo "$response" | sed -n 's/.*"message":"\([^"]*\)".*/\1/p')
-        print_color "error" "Faucet request failed: $wait_message"
+        # Extract the wait time in minutes
+        wait_time=$(echo "$response" | sed -n 's/.*Please wait \([0-9]*\) minutes.*/\1/p')
+
+        # Add 1 minute to the wait time
+        wait_time=$((wait_time + 1))
+
+        # Inform the user and wait
+        print_color "error" "Faucet request failed: Please wait $wait_time minutes. The faucet is limited to 5 SOL per hour."
+        print_color "info" "Waiting $wait_time minutes before retrying..."
+        sleep $((wait_time * 60))
+
+        # Retry after the wait
+        request_faucet "$1"
     elif echo "$response" | grep -q '"success":true'; then
         print_color "success" "5 SOL requested successfully."
     else
         print_color "error" "Faucet request failed. Response: $response"
     fi
 }
+
 
 request_faucet $identity_pubkey
 print_color "info" "Waiting 30 seconds to verify balance..."
