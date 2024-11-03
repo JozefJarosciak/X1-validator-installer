@@ -1,3 +1,21 @@
+## Table of Contents
+
+1. [X1 Validator Installer](#x1-validator-installer)
+2. [⚙️ Prerequisites](#⚙️-prerequisites)
+   - [OS Requirements](#os-requirements)
+   - [Hardware Requirements](#hardware-requirements)
+   - [Increase `ulimit` Limits on Ubuntu Configuration](#increase-ulimit-limits-on-ubuntu-configuration)
+   - [Firewall Configuration](#firewall-configuration)
+3. [🛠️ One-Liner Installation Command](#🛠️-one-liner-installation-command)
+4. [🚀 Running the Validator](#🚀-running-the-validator)
+   - [Staking with Available SOL (XN)](#staking-with-available-sol-xn)
+   - [Increasing Your Stake](#increasing-your-stake)
+   - [SOL (XN) - Distribution Recommendations](#sol-xn---distribution-recommendations)
+5. [🎥 One-Liner Video Demo](#🎥-one-liner-video-demo)
+6. [📜 Licensing (MIT)](#📜-licensing-mit)
+7. [🤝 Contributing & Feedback](#🤝-contributing--feedback)
+8. [📚 Other Resources](#📚-other-resources)
+
 
 # X1 Validator Installer
 
