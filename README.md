@@ -25,8 +25,8 @@ This script automates the installation and setup of an Xolana X1 validator node,
 <hr>
 &nbsp;
 
-
-## ⚙️ Prerequisites
+⚙️
+## Prerequisites
 
 ### OS Requirements:
 Ensure you have the following installed on your system:
@@ -73,8 +73,8 @@ The firewall configuration should look something like this:
 <hr>
 &nbsp;
 
-
-## 🛠️ One-Liner Installation Command
+🛠️
+## One-Liner Installation Command
 
 To install the X1 Validator on your machine, use the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
 
@@ -98,8 +98,8 @@ solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOM
 <hr>
 &nbsp;
 
-
-## 🚀 Running the Validator
+🚀
+## Running the Validator
 
 As part of the setup, the script attempts to **request 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at [https://xolana.xen.network/web_faucet](https://xolana.xen.network/web_faucet).
 
@@ -168,8 +168,8 @@ One-Liner Video Demo: [https://x.com/xenpub/status/1846402568030757357](https://
 <hr>
 &nbsp;
 
-
-## 📜 Licensing (MIT)
+📜
+## Licensing (MIT)
 
 This project is licensed under the **MIT License**.
 
@@ -182,7 +182,8 @@ This project is licensed under the **MIT License**.
 &nbsp;
 
 
-## 🤝 Contributing & Feedback
+🤝
+## Contributing & Feedback
 
 This script has been updated to handle faucet limitations and dynamically adjust the staking amount based on the available balance. While the script aims to provide a seamless installation experience, **it may contain bugs or edge cases** that have not been considered yet.
 
@@ -201,8 +202,8 @@ Thank you for your contributions, reviews, and suggestions. Every bit of feedbac
 <hr>
 &nbsp;
 
-
-## 📚 Other Resources
+📚
+## Other Resources
 - See your validator online: [http://x1val.online/](http://x1val.online/)
 - Read Xen-Tzu's X1 Validator guide to understand how all this works: [https://docs.x1.xyz/explorer](https://docs.x1.xyz/explorer)
 - X1 vs SOLANA: [https://x.com/xenpub/status/1843837470821281953](https://x.com/xenpub/status/1843837470821281953)
