@@ -1,7 +1,7 @@
 ## Table of Contents
 
 1. [X1 Validator Installer](#x1-validator-installer)
-2. [⚙️ Prerequisites](#⚙️-prerequisites)
+2. [⚙️ Prerequisites](#-prerequisites)
    - [OS Requirements](#os-requirements)
    - [Hardware Requirements](#hardware-requirements)
    - [Increase `ulimit` Limits on Ubuntu Configuration](#increase-ulimit-limits-on-ubuntu-configuration)
