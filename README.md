@@ -160,8 +160,8 @@ To increase your stake:
 <hr>
 &nbsp;
 
-
-## 🎥 One-Liner Video Demo
+🎥
+## One-Liner Video Demo
 One-Liner Video Demo: [https://x.com/xenpub/status/1846402568030757357](https://x.com/xenpub/status/1846402568030757357)
 
 &nbsp;
