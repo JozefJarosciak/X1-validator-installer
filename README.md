@@ -1,25 +1,25 @@
 ## Table of Contents
 
 1. [X1 Validator Installer](#x1-validator-installer)
-2. [⚙️ Prerequisites](#-prerequisites)
+2. [Prerequisites](#prerequisites)
    - [OS Requirements](#os-requirements)
    - [Hardware Requirements](#hardware-requirements)
-   - [Increase `ulimit` Limits on Ubuntu Configuration](#increase-ulimit-limits-on-ubuntu-configuration)
+   - [Increase ulimit Limits on Ubuntu Configuration](#increase-ulimit-limits-on-ubuntu-configuration)
    - [Firewall Configuration](#firewall-configuration)
-3. [🛠️ One-Liner Installation Command](#🛠️-one-liner-installation-command)
-4. [🚀 Running the Validator](#🚀-running-the-validator)
+3. [One-Liner Installation Command](#one-liner-installation-command)
+4. [Running the Validator](#running-the-validator)
    - [Staking with Available SOL (XN)](#staking-with-available-sol-xn)
    - [Increasing Your Stake](#increasing-your-stake)
    - [SOL (XN) - Distribution Recommendations](#sol-xn---distribution-recommendations)
-5. [🎥 One-Liner Video Demo](#🎥-one-liner-video-demo)
-6. [📜 Licensing (MIT)](#📜-licensing-mit)
-7. [🤝 Contributing & Feedback](#🤝-contributing--feedback)
-8. [📚 Other Resources](#📚-other-resources)
+5. [One-Liner Video Demo](#one-liner-video-demo)
+6. [Licensing (MIT)](#licensing-mit)
+7. [Contributing & Feedback](#contributing--feedback)
+8. [Other Resources](#other-resources)
 
 
 # X1 Validator Installer
 
-This script automates the installation and setup of an Xolana X1 validator node, including creation of Solana accounts and key generation, airdrops, system tuning, etc.
+This script automates the installation and setup of an Xolana X1 validator node, including the creation of Solana accounts and key generation, airdrops, system tuning, etc.
 
 &nbsp;
 <hr>
@@ -51,7 +51,7 @@ Edit the limits.conf and modify security limits configuration:
 sudo nano /etc/security/limits.conf
 ```
 
-Add to the bottom of the file, save & reboot server before installation:
+Add to the bottom of the file, save & reboot the server before installation:
 ```bash
 ubuntu  soft  nofile  1000000
 ubuntu  hard  nofile  1000000
@@ -101,7 +101,7 @@ solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOM
 
 ## 🚀 Running the Validator
 
-As part of the setup, the script attempts to **request 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at: [https://xolana.xen.network/web_faucet](https://xolana.xen.network/web_faucet).
+As part of the setup, the script attempts to **request 5 SOL (XN)** into the **identity wallet** using the **Xolana network faucet** at [https://xolana.xen.network/web_faucet](https://xolana.xen.network/web_faucet).
 
 **Note:** The faucet has a limitation of **5 SOL (XN) per hour per account**.
 
