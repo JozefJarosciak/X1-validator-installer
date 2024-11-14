@@ -1,4 +1,5 @@
-Upgrade Instructions: Transition from Old Validator to New Agave Validator
+Upgrade Instructions: 
+**Transition from Old Validator to New Agave Validator**
 
 Step-by-Step Guide
 
