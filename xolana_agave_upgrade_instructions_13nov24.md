@@ -48,14 +48,14 @@ Step-by-Step Guide
 8. Update Solana CLI Configuration
    Configure the Solana CLI to use the new RPC endpoint:
    ```bash
-   solana config set -u http://103.219.170.19:8899
+   solana config set -u https://xolana.xen.network
    ```
-   This sets `103.219.170.19:8899` as the default RPC URL for CLI commands, ensuring that commands like balance checks or transactions interact with the correct server.
+   This sets `xolana.xen.network` as the default RPC URL for CLI commands, ensuring that commands like balance checks or transactions interact with the correct server.
 
 9. Launch the Validator
    Start the new validator from within the `agave-xolana` folder:
    ```bash
-   ./target/release/agave-validator --identity identity.json --limit-ledger-size 50000000 --rpc-port 8899 --entrypoint 103.219.170.19:8001 --full-rpc-api --log - --vote-account vote.json --max-genesis-archive-unpacked-size 1073741824 --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --rpc-pubsub-enable-block-subscription
+   ./target/release/agave-validator --identity identity.json --limit-ledger-size 50000000 --rpc-port 8899 --entrypoint xolana.xen.network:8001 --full-rpc-api --log - --vote-account vote.json --max-genesis-archive-unpacked-size 1073741824 --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --rpc-pubsub-enable-block-subscription
    ```
 
 10. (Optional) Set Up the Validator as a Systemd Service
@@ -75,7 +75,7 @@ Step-by-Step Guide
       [Service]
       User=root
       WorkingDirectory=/root/agave-xolana
-      ExecStart=/root/agave-xolana/target/release/agave-validator         --identity identity.json         --limit-ledger-size 50000000         --rpc-port 8899         --entrypoint 103.219.170.19:8001         --full-rpc-api         --log -         --vote-account vote.json         --max-genesis-archive-unpacked-size 1073741824         --require-tower         --enable-rpc-transaction-history         --enable-extended-tx-metadata-storage         --rpc-pubsub-enable-block-subscription
+      ExecStart=/root/agave-xolana/target/release/agave-validator         --identity identity.json         --limit-ledger-size 50000000         --rpc-port 8899         --entrypoint xolana.xen.network:8001         --full-rpc-api         --log -         --vote-account vote.json         --max-genesis-archive-unpacked-size 1073741824         --require-tower         --enable-rpc-transaction-history         --enable-extended-tx-metadata-storage         --rpc-pubsub-enable-block-subscription
       Restart=always
       RestartSec=60s
 
