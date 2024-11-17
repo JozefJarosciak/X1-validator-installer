@@ -76,7 +76,7 @@ The firewall configuration should look something like this:
 🛠️
 ## One-Liner Installation Command
 
-### Before Nov 14, 2024:
+### Before Nov 13, 2024:
 You can install the X1 Validator on your machine using the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
 
 ```bash
@@ -90,7 +90,7 @@ ulimit -n 1000000
 solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOME/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0
 ```
 
-### After Nov 14, 2024:
+### After Nov 13, 2024:
 To install the latest **X1 Agave** version, use the following one-liner command:
 ```bash
 cd ~ && wget -O ~/x1-install-agave.sh https://raw.githubusercontent.com/JozefJarosciak/X1-validator-installer/master/x1-install-agave.sh > /dev/null 2>&1 && chmod +x ~/x1-install-agave.sh > /dev/null 2>&1 && ~/x1-install-agave.sh
