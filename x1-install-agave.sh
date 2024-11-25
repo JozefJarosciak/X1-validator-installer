@@ -18,6 +18,22 @@ function print_color {
     esac
 }
 
+# Section 0: Install Build Dependencies
+print_color "info" "\n===== 0/13: Installing Build Dependencies ====="
+
+print_color "info" "Updating package list..."
+sudo apt-get update > /dev/null 2>&1
+
+print_color "info" "Installing build-essential and other dependencies..."
+sudo apt-get install -y build-essential libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang cmake make libprotobuf-dev protobuf-compiler > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    print_color "success" "Build dependencies installed successfully."
+else
+    print_color "error" "Failed to install build dependencies."
+    exit 1
+fi
+
 # Section 1: Install Rust
 print_color "info" "\n===== 1/13: Rust Installation ====="
 
@@ -77,6 +93,7 @@ print_color "info" "\n===== 4/13: Cloning Agave-Xolana Repository ====="
 
 print_color "info" "Cloning Agave-Xolana repository into $install_dir..."
 git clone https://github.com/FairCrypto/agave-xolana.git "$install_dir" > /dev/null 2>&1
+git checkout dyn_fees_v1 > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     print_color "success" "Agave-Xolana repository cloned into $install_dir"
 else
