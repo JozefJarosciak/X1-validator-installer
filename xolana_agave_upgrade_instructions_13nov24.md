@@ -1,4 +1,6 @@
-If you're running a validator from before Nov 13, 2024, use these upgrade instructions (otherwise ignore): 
+If you're running a validator from before **Nov 13, 2024**, use these upgrade instructions (otherwise ignore): 
+
+
 **Transition from Old Validator to New Agave Validator**
 
 Step-by-Step Guide
