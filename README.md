@@ -76,21 +76,6 @@ The firewall configuration should look something like this:
 🛠️
 ## One-Liner Installation Command
 
-### Before Nov 13, 2024:
-You can install the X1 Validator on your machine using the following one-liner command. This command will download the `x1-install.sh` script from the repository, make it executable, and run it:
-
-```bash
-cd ~ && wget -O ~/x1-install.sh https://raw.githubusercontent.com/JozefJarosciak/X1-validator-installer/master/x1-install.sh > /dev/null 2>&1 && chmod +x ~/x1-install.sh > /dev/null 2>&1 && ~/x1-install.sh
-```
-When the installation is completed, you can start your validator using the following command:
-
-```bash
-export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
-ulimit -n 1000000
-solana-validator --identity $HOME/x1_validator/identity.json --vote-account $HOME/x1_validator/vote.json --rpc-port 8899 --entrypoint 216.202.227.220:8001 --full-rpc-api --log - --max-genesis-archive-unpacked-size 1073741824 --no-incremental-snapshots --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --skip-startup-ledger-verification --no-poh-speed-test --bind-address 0.0.0.0
-```
-
-### After Nov 13, 2024:
 To install the latest **X1 Agave** version, use the following one-liner command:
 ```bash
 cd ~ && wget -O ~/x1-install-agave.sh https://raw.githubusercontent.com/JozefJarosciak/X1-validator-installer/master/x1-install-agave.sh > /dev/null 2>&1 && chmod +x ~/x1-install-agave.sh > /dev/null 2>&1 && ~/x1-install-agave.sh
@@ -98,7 +83,7 @@ cd ~ && wget -O ~/x1-install-agave.sh https://raw.githubusercontent.com/JozefJar
 
 When the installation is completed, you can start your validator using the following command:
 ```bash
-cd ~/agave-xolana; ulimit -n 1000000; ./target/release/agave-validator --identity ~/agave-xolana/identity.json --limit-ledger-size 50000000 --rpc-port 8899 --entrypoint xolana.xen.network:8001 --full-rpc-api --log - --vote-account ~/agave-xolana/vote.json --max-genesis-archive-unpacked-size 1073741824 --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --rpc-pubsub-enable-block-subscription
+cd ~/agave-xolana; ulimit -n 1000000; ./target/release/agave-validator --identity ~/agave-xolana/identity.json --limit-ledger-size 50000000 --rpc-port 8899 --entrypoint xolana.xen.network:8001 --full-rpc-api --log - --vote-account ~/agave-xolana/vote.json --max-genesis-archive-unpacked-size 1073741824 --require-tower --enable-rpc-transaction-history --enable-extended-tx-metadata-storage --rpc-pubsub-enable-block-subscription --full-snapshot-interval-slots 300 --maximum-incremental-snapshots-to-retain 100 --maximum-full-snapshots-to-retain 50 --minimal-snapshot-download-speed 5000000
 ```
 
 **Note:**
